@@ -22,6 +22,5 @@ def send_msg(text: str) -> None:
     print(results.json())
 
 
-
 if __name__ == "__main__":
     main()
