@@ -1,3 +1,5 @@
+from config import TOKEN, CHAT_ID
+
 import requests 
 from datetime import datetime
 from time import sleep
@@ -15,9 +17,7 @@ def clock():
     return clock
 
 def send_msg(text: str) -> None:
-    token = "6304566943:AAFZPJrYnIkyyl3xXiEvO822Hs3urZsq6zQ"
-    chat_id = "1456945518"
-    url_req = "https://api.telegram.org/bot" + token + "/sendMessage" + "?chat_id=" + chat_id + "&text=" + text
+    url_req = "https://api.telegram.org/bot" + TOKEN + "/sendMessage" + "?chat_id=" + CHAT_ID + "&text=" + text
     results = requests.get(url_req)
     print(results.json())
 
