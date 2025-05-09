@@ -5,7 +5,6 @@ from datetime import datetime
 from time import sleep
 
 def main() -> None:
-     
     send_msg("Bot launched")  # start indication
     run = True
     while run:
