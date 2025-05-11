@@ -65,7 +65,7 @@ def main() -> None:
     send_msg("Bot launched")  # start indication
     run = True
     while run:
-        if clock() != "12:00:00":
+        if clock() == "12:00:00":
             send_msg(parser())
             
     
