@@ -6,6 +6,8 @@ from datetime import datetime
 from time import sleep
 import random
 
+counter = -1
+
 def parser():
 
     headers = {
@@ -39,12 +41,16 @@ def parser():
     "tommys-margarita", "trinidad-sour", "tuxedo", "vesper", "vieux-carre",
     "whiskey-sour", "white-lady", "zombie"
 ]
-
+    
     for i in iba_cocktails:
-        
+        global counter 
+        counter += 1 
+        if counter > len(iba_cocktails) -1:
+            send_msg("End.")
+            return 0
         random_cocktail = random.choice(iba_cocktails)
         try:
-            url_cocktail = f"https://iba-world.com/iba-cocktail/{random_cocktail}/"
+            url_cocktail = f"https://iba-world.com/iba-cocktail/{iba_cocktails[counter]}/"
             response_cocktails = requests.get(url_cocktail, headers = headers)
             html_cocktails = response_cocktails.content
             soup_cocktails = BeautifulSoup(html_cocktails, 'lxml')
@@ -54,7 +60,7 @@ def parser():
             for j in ingredients:
                 ul_tags = j.find_all("ul")
                 for ul in ul_tags:
-                    return f"{random_cocktail.title()}\nIngredients:\n{ul.text}"
+                    return f"{iba_cocktails[counter].title()}\nIngredients:\n{ul.text}"
         except: 
             print(f"Error\nCocktail {random_cocktail} - is not found")
             send_msg(f"Error")
@@ -65,7 +71,7 @@ def main() -> None:
     send_msg("Bot launched")  # start indication
     run = True
     while run:
-        if clock() == "12:00:00":
+        if clock() != "12:00:00":
             send_msg(parser())
             
     
