@@ -9,9 +9,14 @@ Telegram bot to study cocktails. Every day at 12 o'clock, the bot sends a telegr
 * BeautifulSoup <img src="https://pypi.org/static/images/logo-small.8998e9d1.svg" width="15"/>
 * Requests <img src="https://pypi.org/static/images/logo-small.8998e9d1.svg" width="15"/>
 
-### Preview:
+### Desktop preview:
 
-![alt text](image.png)
+![alt text](image.png) 
+
+### Mobile preview:
+
+![image](https://github.com/user-attachments/assets/236c6e6d-11fb-4627-91ad-b8421e8d99f1)
+
 
 ---
 <div id="badges">
