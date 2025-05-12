@@ -6,6 +6,7 @@ from datetime import datetime
 from time import sleep
 import random
 
+
 def parser():
 
     headers = {
@@ -49,15 +50,18 @@ def parser():
             html_cocktails = response_cocktails.content
             soup_cocktails = BeautifulSoup(html_cocktails, 'lxml')
             
+            image_cocktail = soup_cocktails.find("img", class_="attachment-medium_large size-medium_large wp-image-299")
+            srcset = image_cocktail.get('srcset')
+            
             ingredients = soup_cocktails.find_all("div", class_="elementor-shortcode")
             
             for j in ingredients:
                 ul_tags = j.find_all("ul")
                 for ul in ul_tags:
-                    return f"{random_cocktail.title()}\nIngredients:\n{ul.text}"
-        except: 
-            print(f"Error\nCocktail {random_cocktail} - is not found")
-            send_msg(f"Error")
+                    return f"Image links:\n{srcset}\n\nName:\n{random_cocktail.title()}\n\nIngredients:{ul.text}"
+        except Exception as e: 
+            print(f"Cocktail {random_cocktail} - is not found\nError: {e}")
+            send_msg(f"Error: {e}")
             main()
             
     
@@ -75,14 +79,15 @@ def clock() -> str:
     return clock
 
 def send_msg(text: str) -> None:
+    
     try:
         url_req = "https://api.telegram.org/bot" + TOKEN + "/sendMessage" + "?chat_id=" + CHAT_ID + "&text=" + text
         results = requests.get(url_req)
-    except:
+    except Exception as e:
         
-        print("404 Not Found")
+        print(f"Error: {e}")
         sleep(5)
-        url_req = "https://api.telegram.org/bot" + TOKEN + "/sendMessage" + "?chat_id=" + CHAT_ID + "&text=" + "404 Not Found"
+        url_req = "https://api.telegram.org/bot" + TOKEN + "/sendMessage" + "?chat_id=" + CHAT_ID + "&text=" + f'Error: {e}'
         main()
     print(results.json())
 
